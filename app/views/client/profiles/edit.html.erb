@@ -1,0 +1,19 @@
+<h1>Client::Profiles#edit</h1>
+<p>Find me in app/views/client/profiles/edit.html.erb</p>
+<%= form_with(model: @user, url: client_profile_path, method: :patch) do |f| %>
+  <%= f.label :image %><br />
+  <%= f.file_field :image %><br />
+
+  <%= f.label :username %><br />
+  <%= f.text_field :username %><br />
+
+  <%= f.label :email %><br />
+  <%= f.email_field :email %><br />
+
+  <%= f.label :phone_number %><br />
+  <%= f.telephone_field :phone_number %><br />
+
+  <%= f.submit 'Save Changes' %><br />
+<% end %>
+
+<%= link_to 'Cancel', client_profile_path %>

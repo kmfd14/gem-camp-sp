@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root 'home#index'
 
   constraints(ClientDomainConstraint.new) do
-
+    namespace :client do
+      resource :profile, only: [:show, :edit, :update]
+    end
   end
 
   constraints(AdminDomainConstraint.new) do

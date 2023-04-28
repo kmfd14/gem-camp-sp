@@ -10,15 +10,30 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-    <% if user_signed_in? %>
-      <h2> Hello <%= current_user.email %> </h2>
-      <h3>User: <%= current_user.role %></h3>
-      <%= link_to 'Sign out', destroy_user_session_path, data: { 'turbo-method': :delete } %>
-
+  <nav>
+    <%= link_to 'Home', root_path %>
+    <% if request.host == 'admin.com' %>
+      <%= link_to 'User List', admin_users_path %>
     <% else %>
-      <%= link_to 'Sign in', new_user_session_path %>
+      <%= link_to 'Profile', client_profile_path %>
     <% end %>
+  </nav>
+
+  <body>
+    <% if client_user_signed_in? %>
+      <h2> Hello <%= current_client_user.email %> </h2>
+      <h3> User: <%= current_client_user.role %> </h3>
+    <%= link_to 'Sign out', destroy_client_user_session_path, data: { 'turbo-method': :delete } %>
+    <% elsif admin_user_signed_in? %>
+      <h2> Hello <%= current_admin_user.email %> </h2>
+      <h3> User: <%= current_admin_user.role %> </h3>
+      <%= link_to 'Sign out', destroy_admin_user_session_path, data: { 'turbo-method': :delete } %>
+    <% elsif request.host == 'admin.com' %>
+      <%= link_to 'Sign in', new_admin_user_session_path %>
+    <% else %>
+      <%= link_to 'Sign in', new_client_user_session_path %>
+    <% end %>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

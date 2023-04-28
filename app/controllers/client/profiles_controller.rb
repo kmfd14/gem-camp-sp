@@ -1,15 +1,15 @@
 class Client::ProfilesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_client_user!
 
   def show
-    @user = current_user
+    @user = current_client_user
   end
   def edit
-    @user = current_user
+    @user = current_client_user
   end
 
   def update
-    @user = current_user
+    @user = current_client_user
     if @user.update(user_params)
       redirect_to client_profile_path, notice: 'Profile updated successfully.'
     else

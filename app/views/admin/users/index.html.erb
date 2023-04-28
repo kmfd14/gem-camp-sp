@@ -12,10 +12,10 @@
   </thead>
   <% @users.each do |user| %>
     <tr>
-      <td></td>
+      <td><%= user.parent_id %></td>
       <td><%= user.email %></td>
-      <td><%= user.username %></td>
       <td><%= user.total_deposit %></td>
+      <td></td>
       <td><%= user.coins %></td>
       <td></td>
       <td><%= user.children_member %></td>

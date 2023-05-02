@@ -14,12 +14,10 @@
     <%= link_to 'Home', root_path %>
     <% if request.host == 'admin.com' %>
       <%= link_to 'User List', admin_users_path %>
-    <% else %>
-      <%= link_to 'Profile', client_profile_path %>
     <% end %>
   </nav>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <% if client_user_signed_in? %>
       <h2> Hello <%= current_client_user.email %> </h2>
       <h3> User: <%= current_client_user.role %> </h3>
@@ -38,4 +36,12 @@
     <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
+
+  <footer class="d-flex flex-row align-items-center justify-content-center gap-3 border border-dark mt-auto">
+    <div class="p-2 border border-dark"><%= link_to 'Share', root_path %></div>
+    <div class="p-2 border border-dark"><%= link_to 'Invite', client_invite_index_path %></div>
+    <div class="p-2 border border-dark"><%= link_to 'Lottery', root_path %></div>
+    <div class="p-2 border border-dark"><%= link_to 'Shop', root_path %></div>
+    <div class="p-2 border border-dark"><%= link_to 'Me', client_profile_path %></div>
+  </footer>
 </html>

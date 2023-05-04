@@ -8,7 +8,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:parent).all
+    @users = User.client.includes(:parent).all
   end
 
   def check_admin

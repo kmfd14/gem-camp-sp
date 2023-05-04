@@ -2,6 +2,7 @@
 <p>Find me in app/views/client/profiles/show.html.erb</p>
 <h2>My Profile</h2>
 <p><%= link_to 'Edit Profile', edit_client_profile_path %></p>
+<p><%= link_to 'Address', client_user_address_index_path %></p>
 <%= image_tag @user.image.url if @user.image.present? %>
 <p><strong>Profile Picture</strong></p>
 <p><strong>Username:</strong> <%= @user.username %></p>

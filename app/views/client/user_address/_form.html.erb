@@ -1,0 +1,40 @@
+<%= form_with model: user_address, url: path, method: method, data: { controller: 'location' } do |f| %>
+  <% if user_address.errors.any? %>
+    <ul>
+      <% user_address.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :street_address %>
+    <%= f.text_field :street_address %>
+  </div>
+  <div>
+    <%= f.label :phone_number %>
+    <%= f.phone_field :phone_number %>
+  </div>
+  <div>
+    <%= f.label :remark %>
+    <%= f.text_field :remark %>
+  </div>
+  <div>
+    <%= f.label :address_region_id %>
+    <%= f.collection_select :address_region_id,
+                            Address::Region.all, :id, :name,
+                            { prompt: 'Please select region' },
+                            data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' } %>
+  </div>
+  <div>
+    <%= f.label :address_provinces_id %>
+    <%= f.collection_select :address_province_id,
+                               [], nil, nil,
+                               { prompt: 'Please select province' },
+                               data: { location_target: 'selectedProvinceId' } %>
+  </div>
+  <%= f.submit %>
+<% end %>

@@ -7,6 +7,6 @@ class Api::V1::RegionsController < ApplicationController
 
   def show
     region = Address::Region.find(params[:id])
-    render json: region, each_serializer: RegionSerializer
+    render json: region, serializer: RegionSerializer
   end
 end

@@ -1,39 +1,45 @@
-<h2>Sign up</h2>
+<div class="d-sm-flex flex-column align-items-center justify-content-center rounded-3 mx-auto w-25 h-75 p-3 mb-2 bg-secondary text-white">
+  <h2>Client Sign up</h2>
+  <section class="d-flex flex-row align-items-center justify-content-evenly pt-2" >
+    <%= link_to 'Sign in', new_client_user_session_path, class: "btn btn-outline-light" %>
+    <%= link_to 'Sign Up', new_client_user_registration_path, class: "btn btn-outline-light active" %>
+  </section>
+  <div>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "client/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "client/shared/error_messages", resource: resource %>
+      <div class="form-outline mb-4">
+        <%= f.label :username, class: "form-label" %><br/>
+        <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control"  %>
+      </div>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+      <div class="form-outline mb-4">
+        <%= f.label :phone_number, class: "form-label" %><br/>
+        <%= f.phone_field :phone_number, autofocus: true, class: "form-control"  %>
+      </div>
+
+      <div class="form-outline mb-4">
+        <%= f.label :email, class: "form-label" %><br/>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+
+      <div class="form-outline mb-4">
+        <%= f.label :password, class: "form-label" %>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br/>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control"  %>
+      </div>
+
+      <div class="form-outline mb-4">
+        <%= f.label :password_confirmation, class: "form-label" %><br/>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"  %>
+      </div>
+
+      <div class="form-outline mb-4">
+        <%= f.submit "Sign up", type: "submit", class: "btn btn-primary w-100" %>
+      </div>
+    <% end %>
+    <%= render "client/shared/links" %>
   </div>
-
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.phone_field :phone_number, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "client/shared/links" %>
+</div>

@@ -1,8 +1,8 @@
 class Client::UserAddressController < ApplicationController
-  before_action :set_address, only: [:show, :edit, :update]
+  before_action :set_address, only: [:edit, :update, :destroy]
 
   def index
-    @user_addresses = UserAddress.all
+    @user_addresses = current_client_user.user_address.all
   end
 
   def new
@@ -21,8 +21,6 @@ class Client::UserAddressController < ApplicationController
     end
   end
 
-  def show; end
-
   def edit; end
 
   def update
@@ -35,6 +33,12 @@ class Client::UserAddressController < ApplicationController
     end
   end
 
+  def destroy
+    @user_address.destroy
+    flash[:notice] = 'Address Deleted Successfully'
+    redirect_to client_user_address_index_path
+  end
+
   private
 
   def set_address
@@ -42,6 +46,6 @@ class Client::UserAddressController < ApplicationController
   end
 
   def address_params
-    params.require(:user_address).permit(:name, :street_address, :phone_number, :remark, :address_region_id, :address_province_id)
+    params.require(:user_address).permit(:is_default, :name, :genre, :street_address, :phone_number, :remark, :address_region_id, :address_province_id, :address_city_id, :address_barangay_id)
   end
 end

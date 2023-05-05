@@ -12,6 +12,6 @@ class Api::V1::BarangaysController < ApplicationController
 
   def show
     barangay = Address::Barangay.find(params[:id])
-    render json: barangay, each_serializer: BarangaySerializer
+    render json: barangay, serializer: BarangaySerializer
   end
 end

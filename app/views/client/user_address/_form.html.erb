@@ -7,6 +7,14 @@
     </ul>
   <% end %>
   <div>
+    <%= f.label :is_default %>
+    <%= f.check_box :is_default %>
+  </div>
+  <div>
+    <%= f.label :genre %>
+    <%= f.select :genre, UserAddress.genres.keys.map {|w| [w.humanize, w]} %>
+  </div>
+  <div>
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
@@ -34,7 +42,21 @@
     <%= f.collection_select :address_province_id,
                                [], nil, nil,
                                { prompt: 'Please select province' },
-                               data: { location_target: 'selectedProvinceId' } %>
+                               data: { location_target: 'selectedProvinceId', action: 'change->location#fetchCities' } %>
+  </div>
+  <div>
+    <%= f.label :address_city_id %>
+    <%= f.collection_select :address_city_id,
+                            [], nil, nil,
+                            { prompt: 'Please select city' },
+                            data: { location_target: 'selectedCityId', action: 'change->location#fetchBarangays ' } %>
+  </div>
+  <div>
+    <%= f.label :address_barangay_id %>
+    <%= f.collection_select :address_barangay_id,
+                            [], nil, nil,
+                            { prompt: 'Please select barangay' },
+                            data: { location_target: 'selectedBarangayId' } %>
   </div>
   <%= f.submit %>
 <% end %>

@@ -1,13 +1,24 @@
-Hello
 <p><%= link_to 'New Address', new_client_user_address_path %></p>
 
 <table>
   <thead>
-    <td>address</td>
+  <td><b>Default</b></td>
+  <td><b>Genre</b></td>
+  <td><b>Name</b></td>
+  <td><b>Address</b></td>
+  <td><b>Remark</b></td>
+  <td><b>Action</b></td>
   </thead>
   <% @user_addresses.each do |address| %>
     <tr>
-      <td><%= "#{address.region&.name} #{address.province&.name}" %></td>
+      <td><%= address.is_default %></td>
+      <td><%= address.genre %></td>
+      <td><%= address.name %></td>
+      <td><%= "#{address.street_address}, #{address.barangay&.name}, #{address.city&.name}, #{address.province&.name}, #{address.region&.name}" %></td>
+      <td><%= address.remark %></td>
+      <td>
+        <%= link_to 'Edit', edit_client_user_address_path(address) %>
+      </td>
     </tr>
   <% end %>
 </table>

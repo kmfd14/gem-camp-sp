@@ -1,0 +1,44 @@
+<%= form_with model: item, url: path, method: method do |f| %>
+  <% if item.errors.any? %>
+    <ul>
+      <% item.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity %>
+  </div>
+  <div>
+    <%= f.label :minimum_bets %>
+    <%= f.text_field :minimum_bets %>
+  </div>
+  <div>
+    <%= f.label :online_at %>
+    <%= f.datetime_field :online_at %>
+  </div>
+  <div>
+    <%= f.label :offline_at %>
+    <%= f.datetime_field :offline_at %>
+  </div>
+  <div>
+    <%= f.label :start_at %>
+    <%= f.datetime_field :start_at %>
+  </div>
+  <div>
+    <%= f.label :status %>
+    <%= f.collection_radio_buttons :status, Item.statuses.keys, :itself, :humanize %>
+  </div>
+  <div>
+    <%= f.submit 'Submit Item' %>
+  </div>
+<% end %>

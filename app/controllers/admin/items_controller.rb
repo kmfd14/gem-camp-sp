@@ -1,5 +1,5 @@
 class Admin::ItemsController < ApplicationController
-
+  before_action :set_item, only: [:edit, :update, :destroy]
   def index
     @items = Item.all
   end
@@ -29,6 +29,12 @@ class Admin::ItemsController < ApplicationController
       flash.now[:alert] = 'Update items failed'
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @item.destroy
+    flash[:notice] = 'Item Deleted Successfully'
+    redirect_to admin_items_path
   end
 
   private

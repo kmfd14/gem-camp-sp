@@ -13,9 +13,14 @@ Rails.application.routes.draw do
     devise_for :users, as: 'admin', controllers: { sessions: 'admin/sessions' }
     namespace :admin do
       resources :users
-      resources :items
+      resources :items do
+        member do
+          post :start, :pause, :end, :cancel
+          end
+        end
+      end
     end
-  end
+
   root 'home#index'
 
   namespace :api do

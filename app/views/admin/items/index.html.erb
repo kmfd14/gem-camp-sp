@@ -12,6 +12,7 @@
   <td><b>Offline at</b></td>
   <td><b>Start at</b></td>
   <td><b>Status</b></td>
+  <td><b>Control</b></td>
   <td><b>Action</b></td>
   </thead>
   <% @items.each do |item| %>
@@ -19,13 +20,19 @@
       <td><%= image_tag item.image.url if item.image.present? %></td>
       <td><%= item.name %></td>
       <td><%= item.quantity %></td>
-      <td><%= item.minimum_bet %></td>
+      <td><%= item.minimum_bets %></td>
       <td><%= item.state %></td>
       <td><%= item.batch_count %></td>
       <td><%= item.online_at %></td>
       <td><%= item.offline_at %></td>
       <td><%= item.start_at %></td>
       <td><%= item.status %></td>
+      <td>
+        <%= button_to 'Start', start_admin_item_path(item), method: :post, class: 'btn btn-success' %>
+        <%= button_to 'Pause', pause_admin_item_path(item), method: :post, class: 'btn btn-info' %>
+        <%= button_to 'End', end_admin_item_path(item), method: :post, class: 'btn btn-primary' %>
+        <%= button_to 'Cancel', cancel_admin_item_path(item), method: :post, class: 'btn btn-danger' %>
+      </td>
       <td>
         <%= link_to 'Edit', edit_admin_item_path(item) %>
       </td>

@@ -22,7 +22,7 @@ class Admin::ItemsController < ApplicationController
   def edit; end
 
   def update
-    if @item.update(address_params)
+    if @item.update(item_params)
       flash[:notice] = 'Item updated successfully'
       redirect_to admin_items_path
     else
@@ -34,6 +34,48 @@ class Admin::ItemsController < ApplicationController
   def destroy
     @item.destroy
     flash[:notice] = 'Item Deleted Successfully'
+    redirect_to admin_items_path
+  end
+
+  def start
+    item = Item.find(params[:id])
+    item.batch_count = 0
+    if item.start!
+      item.update(quantity: item.quantity - 1, batch_count: item.batch_count + 1)
+      flash[:notice] = 'Item started.'
+    else
+      flash[:alert] = "Item start failed."
+    end
+    redirect_to admin_items_path
+  end
+
+  def pause
+    item = Item.find(params[:id])
+    if item.pause!
+      flash[:notice] = 'Item paused.'
+    else
+      flash[:alert] = "Item pause failed."
+    end
+    redirect_to admin_items_path
+  end
+
+  def end
+    item = Item.find(params[:id])
+    if item.end!
+      flash[:notice] = "Item ended."
+    else
+      flash[:alert] = "Item end failed"
+    end
+    redirect_to admin_items_path
+  end
+
+  def cancel
+    item = Item.fid(params[:id])
+    if item.cancel!
+      flash[:notice] = "Item cancelled."
+    else
+      flash[:alert] = "Item cancel failed."
+    end
     redirect_to admin_items_path
   end
 

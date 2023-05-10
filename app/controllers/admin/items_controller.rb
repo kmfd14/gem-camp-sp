@@ -70,7 +70,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def cancel
-    item = Item.fid(params[:id])
+    item = Item.find(params[:id])
     if item.cancel!
       flash[:notice] = "Item cancelled."
     else

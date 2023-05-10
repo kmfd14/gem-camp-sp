@@ -34,7 +34,8 @@
         <%= button_to 'Cancel', cancel_admin_item_path(item), method: :post, class: 'btn btn-danger' %>
       </td>
       <td>
-        <%= link_to 'Edit', edit_admin_item_path(item) %>
+        <%= link_to 'Edit Item', edit_admin_item_path(item) %>
+        <%= button_to :delete, admin_item_path(item), method: :delete %>
       </td>
     </tr>
   <% end %>

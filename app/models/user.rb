@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   has_many :user_address
 
+  has_many :bets
+
   mount_uploader :image, ImageUploader
 
   enum role: { client: 0, admin: 1 }

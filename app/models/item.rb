@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   has_many :item_category_ships
   has_many :categories, through: :item_category_ships
 
+  has_many :bets
+
   scope :filter_by_category, -> (category_name) { includes(:categories).where(categories: { name: category_name } ) }
 
   default_scope { where(deleted_at: nil) }

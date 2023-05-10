@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_10_052642) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   create_table "item_category_ships", charset: "utf8mb4", force: :cascade do |t|

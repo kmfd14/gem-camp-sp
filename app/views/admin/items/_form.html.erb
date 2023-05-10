@@ -1,4 +1,4 @@
-<%= form_with model: item, url: path, method: method do |f| %>
+<%= form_with model: item, url: path, data: {controller: 'select2'} , method: method do |f| %>
   <% if item.errors.any? %>
     <ul>
       <% item.errors.each do |error| %>
@@ -6,6 +6,10 @@
       <% end %>
     </ul>
   <% end %>
+  <div>
+    <%= f.select :category_ids, Category.all.map { |category| [category.name, category.id] }, {},
+                 data: { placeholder: 'Please select moods' }, multiple: true, class: 'select2 w-25' %>
+  </div>
   <div>
     <%= f.label :image %>
     <%= f.file_field :image %>

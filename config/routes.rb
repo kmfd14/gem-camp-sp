@@ -16,10 +16,11 @@ Rails.application.routes.draw do
       resources :items do
         member do
           post :start, :pause, :end, :cancel
-          end
         end
       end
+      resources :categories, except: :show
     end
+  end
 
   root 'home#index'
 

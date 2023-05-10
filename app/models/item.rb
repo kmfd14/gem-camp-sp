@@ -1,6 +1,8 @@
 class Item < ApplicationRecord
   enum status: { active: 0, inactive: 1 }
 
+  has_many :item_category_ships
+  has_many :categories, through: :item_category_ships
 
   default_scope { where(deleted_at: nil) }
 

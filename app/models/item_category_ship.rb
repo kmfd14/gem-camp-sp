@@ -1,0 +1,2 @@
+class ItemCategoryShip < ApplicationRecord
+end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resource :profile, only: [:show, :edit, :update]
       resources :invite, only: [:index]
       resources :user_address, path: 'address'
+      resources :lottery, only: [:index]
     end
   end
 

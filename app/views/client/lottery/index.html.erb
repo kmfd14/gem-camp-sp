@@ -1,0 +1,37 @@
+<h3>Lottery Page</h3>
+
+<%= link_to 'All', client_lottery_index_path %>
+<% Category.all.each do |category| %>
+  <%= link_to category.name, client_lottery_index_path(category: category.name) %>
+<% end %>
+
+<table>
+  <thead>
+  <td><b>Category</b></td>
+  <td><b>Image</b></td>
+  <td><b>Name</b></td>
+  <td><b>Quantity</b></td>
+  <td><b>Minimum Bets</b></td>
+  <td><b>State</b></td>
+  <td><b>Batch Count</b></td>
+  <td><b>Online at</b></td>
+  <td><b>Offline at</b></td>
+  <td><b>Start at</b></td>
+  <td><b>Status</b></td>
+  </thead>
+  <% @items.each do |item| %>
+    <tr>
+      <td><%= item.categories.pluck(:name).join(', ') %></td>
+      <td><%= image_tag item.image.url if item.image.present? %></td>
+      <td><%= item.name %></td>
+      <td><%= item.quantity %></td>
+      <td><%= item.minimum_bets %></td>
+      <td><%= item.state %></td>
+      <td><%= item.batch_count %></td>
+      <td><%= item.online_at %></td>
+      <td><%= item.offline_at %></td>
+      <td><%= item.start_at %></td>
+      <td><%= item.status %></td>
+    </tr>
+  <% end %>
+</table>

@@ -27,6 +27,6 @@ class Item < ApplicationRecord
   private
 
   def may_start?
-    item.quantity > 0 && time.current < item.offline_at && status == 'active'
+    quantity > 0 && Time.current < offline_at && status == 'active'
   end
 end

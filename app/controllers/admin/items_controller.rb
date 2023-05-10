@@ -1,4 +1,5 @@
 class Admin::ItemsController < ApplicationController
+  before_action :authenticate_admin_user!
   before_action :set_item, only: [:edit, :update, :destroy]
   def index
     @items = Item.all
@@ -39,7 +40,6 @@ class Admin::ItemsController < ApplicationController
 
   def start
     item = Item.find(params[:id])
-    item.batch_count = 0
     if item.start!
       item.update(quantity: item.quantity - 1, batch_count: item.batch_count + 1)
       flash[:notice] = 'Item started.'

@@ -1,0 +1,44 @@
+<h1>Bet Page</h1>
+<div class="d-flex flex-row align-items-center justify-content-center">
+  <%= form_tag admin_bets_path, method: :get do %>
+      <b><%= 'Filter' %></b>
+      <%= text_field_tag :serial_number, params[:serial_number], placeholder: "Enter serial number..." %>
+      <%= text_field_tag :name, params[:name], placeholder: "Enter item name..." %>
+      <%= text_field_tag :email, params[:email], placeholder: "Enter email..." %>
+      <%= select_tag :state, options_for_select(['betting', 'won', 'lost', 'cancelled'], params[:state]), include_blank: true %>
+      <%= label_tag :start_date, "Start Date" %>
+      <%= date_field_tag :start_date, params[:start_date] %>
+      <%= date_field_tag :end_date, params[:end_date] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+<div class="d-flex flex-row align-items-center justify-content-lg-center">
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Serial Number</th>
+      <th>Item Name</th>
+      <th>Email</th>
+      <th>State</th>
+      <th>Batch Count</th>
+      <th>Created At</th>
+      <th>Control</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @bets.each do |bet| %>
+      <tr>
+        <td><%= bet.serial_number %></td>
+        <td><%= bet.item.name %></td>
+        <td><%= bet.user.email %></td>
+        <td><%= bet.state %></td>
+        <td><%= bet.batch_count %></td>
+        <td><%= bet.created_at %></td>
+        <td>
+          <%=  %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

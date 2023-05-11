@@ -32,6 +32,6 @@ class Client::LotteryController < ApplicationController
   private
 
   def bet_params
-    params.require(:bet).permit(:coins, :item_id)
+    params.require(:bet).permit(:item_id)
   end
 end

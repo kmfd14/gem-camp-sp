@@ -2,7 +2,7 @@ class Client::UserAddressController < ApplicationController
   before_action :set_address, only: [:edit, :update, :destroy]
 
   def index
-    @user_addresses = current_client_user.user_address.all
+    @user_addresses = current_client_user.user_address.order(is_default: :desc)
   end
 
   def new

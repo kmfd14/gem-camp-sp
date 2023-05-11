@@ -6,7 +6,8 @@ Rails.application.routes.draw do
       resource :profile, only: [:show, :edit, :update]
       resources :invite, only: [:index]
       resources :user_address, path: 'address'
-      resources :lottery, only: [:index]
+      resources :lottery, only: [:index, :show, :create]
+      resources :bets
     end
   end
 
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
         end
       end
       resources :categories, except: :show
+      resources :bets, only: [:index]
     end
   end
 

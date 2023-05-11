@@ -3,6 +3,7 @@ class Bet < ApplicationRecord
   belongs_to :user
 
   after_create :bet_serial_generator
+  after_create :deduct_coin
   include AASM
 
   aasm column: :state do
@@ -33,7 +34,6 @@ class Bet < ApplicationRecord
   end
 
   def deduct_coin
-    self.user.decrement!(:coin)
+    self.user.decrement!(:coins)
   end
-
 end

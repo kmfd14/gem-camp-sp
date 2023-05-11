@@ -7,5 +7,31 @@ class Client::LotteryController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @user_bets = current_client_user.bets.where(item_id: @item.id).order(created_at: :desc)
+    @bet = Bet.new
+  end
+
+  def create
+    # render json: params
+    @tickets = params[:bet][:coins].to_i
+    if @tickets.times do
+      @bet = Bet.new(bet_params)
+      @item = Item.find(params[:bet][:item_id])
+      @bet.user_id = current_client_user.id
+      @bet.item = @item
+      @bet.batch_count = @item.batch_count
+      @bet.save
+    end
+      flash[:notice] = 'You have bet on this item.'
+    else
+      flash[:notice] = 'Bet failed.'
+    end
+    redirect_to client_lottery_index_path
+  end
+
+  private
+
+  def bet_params
+    params.require(:bet).permit(:coins, :item_id)
   end
 end

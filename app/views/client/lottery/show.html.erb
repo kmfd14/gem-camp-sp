@@ -1,0 +1,39 @@
+<div class="container-sm d-flex flex-column w-50 border border-dark rounded-3 bg-light text-black mb-2">
+    <%= image_tag @item.image.url if @item.image.present? %>
+    <h4>show item id: <%= @item.id %></h4>
+</div>
+<div class="container-sm d-flex flex-column w-50 text-black mb-2">
+  <%= form_with model: @bet, url: client_lottery_index_path, method: :post do |f| %>
+    <% if @bet.errors.any? %>
+      <ul>
+        <% @bet.errors.each do |bet| %>
+          <li><%= bet.errors.full_message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <div class="mb-3">
+      <%= f.label :coins, class: "form-label align-items-center justify-content-evenly" %>
+      <%= f.text_field :coins, class: "form-control text-center" %>
+      <%= f.hidden_field :item_id, value: params[:id] %>
+    </div>
+    <div class="d-flex flex-row align-items-center justify-content-evenly pb-2">
+      <%= f.submit 'Submit Bet', class: "btn btn-primary w-100" %>
+    </div>
+  <% end %>
+</div>
+<div class="container-sm text-center w-25 overflow-scroll">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Serial Number</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @user_bets.each do |bet| %>
+      <tr>
+        <td><%= bet.serial_number %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

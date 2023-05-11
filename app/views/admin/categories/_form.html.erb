@@ -1,4 +1,11 @@
 <%= form_with model: category, url: path, method: method do |f| %>
+  <% if category.errors.any? %>
+    <ul>
+      <% category.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.submit %>

@@ -23,7 +23,8 @@ class Item < ApplicationRecord
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from: [:pending, :paused, :cancelled, :ended], to: :starting, guard: :may_start?
+      transitions from: [:pending, :cancelled, :ended], to: :starting, guard: :may_start?
+      transitions from: :paused, to: :starting
     end
 
     event :pause do

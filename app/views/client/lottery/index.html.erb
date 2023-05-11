@@ -18,6 +18,7 @@
   <td><b>Offline at</b></td>
   <td><b>Start at</b></td>
   <td><b>Status</b></td>
+  <td></td>
   </thead>
   <% @items.each do |item| %>
     <tr>
@@ -32,6 +33,7 @@
       <td><%= item.offline_at %></td>
       <td><%= item.start_at %></td>
       <td><%= item.status %></td>
+      <td><%= link_to 'Bet on this Item', client_lottery_path(item), method: :post %></td>
     </tr>
   <% end %>
 </table>

@@ -4,8 +4,6 @@ class Item < ApplicationRecord
   has_many :item_category_ships
   has_many :categories, through: :item_category_ships
 
-  has_many :bets
-
   scope :filter_by_category, -> (category_name) { includes(:categories).where(categories: { name: category_name } ) }
 
   default_scope { where(deleted_at: nil) }
@@ -17,6 +15,7 @@ class Item < ApplicationRecord
   end
 
   include AASM
+  has_many :bets
 
   aasm column: :state do
     state :pending, initial: true
@@ -36,7 +35,7 @@ class Item < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: [:starting, :paused], to: :cancelled
+      transitions from: [:starting, :paused], to: :cancelled, success: :update_bets_state
     end
   end
 
@@ -48,5 +47,11 @@ class Item < ApplicationRecord
 
   def change_quantity_and_batch_count
     update(quantity: quantity - 1, batch_count: batch_count + 1)
+  end
+
+  def update_bets_state
+    bets.each do |bet|
+      bet.cancel! if bet.may_cancel?
+    end
   end
 end

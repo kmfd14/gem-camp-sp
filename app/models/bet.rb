@@ -1,5 +1,5 @@
 class Bet < ApplicationRecord
-  belongs_to :item
+
   belongs_to :user
 
   after_create :bet_serial_generator
@@ -12,20 +12,21 @@ class Bet < ApplicationRecord
   scope :filter_by_date_range, -> (date_range) { where(bets: {created_at: date_range} ) }
 
   include AASM
+  belongs_to :item
 
   aasm column: :state do
     state :betting, initial: true
     state :won, :lost, :cancelled
 
-    event :won do
+    event :win do
       transitions from: :betting, to: :won, guard: :may_start?
     end
 
-    event :lost do
+    event :lose do
       transitions from: :betting, to: :lost
     end
 
-    event :cancelled do
+    event :cancel do
       transitions from: :betting, to: :cancelled, success: :refund_user_coins
     end
   end
@@ -45,6 +46,6 @@ class Bet < ApplicationRecord
   end
 
   def refund_user_coins
-    user.update(coins: user.coins + :coins)
+    self.user.increment!(:coins)
   end
 end

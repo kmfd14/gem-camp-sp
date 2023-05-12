@@ -19,7 +19,7 @@ class Bet < ApplicationRecord
     state :won, :lost, :cancelled
 
     event :win do
-      transitions from: :betting, to: :won, guard: :may_start?
+      transitions from: :betting, to: :won
     end
 
     event :lose do

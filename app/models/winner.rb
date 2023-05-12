@@ -2,6 +2,11 @@ class Winner < ApplicationRecord
   include AASM
   belongs_to :user
 
+  scope :by_serial_number, -> (serial_number) { joins(:bet).where(bets: {serial_number: serial_number} ) }
+  scope :by_email, -> (user_email) { joins(:user).where(users: {email: user_email} ) }
+  scope :by_state, -> (state_name) { where(bets: {state: state_name} ) }
+  scope :by_date_range, -> (date_range) { where(bets: {created_at: date_range} ) }
+
   aasm column: :state do
     state :won, initial: true
     state :claimed, :submitted, :paid, :shipped, :delivered, :shared,:published, :remove_published

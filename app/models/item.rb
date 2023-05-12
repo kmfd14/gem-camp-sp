@@ -22,7 +22,7 @@ class Item < ApplicationRecord
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from: [:pending, :cancelled, :ended], to: :starting, guard: :may_start?, success: :change_quantity_and_batch_count
+      transitions from: [:pending, :cancelled, :ended], to: :starting, guard: :can_start?, success: :change_quantity_and_batch_count
       transitions from: :paused, to: :starting
     end
 
@@ -31,7 +31,7 @@ class Item < ApplicationRecord
     end
 
     event :end do
-      transitions from: :starting, to: :ended
+      transitions from: :starting, to: :ended, guard: :reached_min_bets?, success: :select_winner
     end
 
     event :cancel do
@@ -41,8 +41,10 @@ class Item < ApplicationRecord
 
   private
 
-  def may_start?
-    quantity > 0 && Time.current < offline_at && status == 'active'
+  def can_start?
+    quantity > 0 && Time.current < offline_at && active?
+  end
+
   end
 
   def change_quantity_and_batch_count
@@ -50,8 +52,9 @@ class Item < ApplicationRecord
   end
 
   def update_bets_state
-    bets.each do |bet|
-      bet.cancel! if bet.may_cancel?
-    end
+    bets.where(batch_count: batch_count).each { |bet| bet.cancel! if bet.may_cancel? }
+    update(quantity: quantity + 1)
+  end
+
   end
 end

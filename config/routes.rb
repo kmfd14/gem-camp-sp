@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       end
       resources :categories, except: :show
       resources :bets, only: [:index]
+      resources :winners
     end
   end
 

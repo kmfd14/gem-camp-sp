@@ -1,6 +1,10 @@
 class Winner < ApplicationRecord
   include AASM
   belongs_to :user
+  belongs_to :bet
+  belongs_to :item
+  belongs_to :admin, class_name: 'User', optional: true
+  belongs_to :user_address, optional: true
 
   scope :by_serial_number, -> (serial_number) { joins(:bet).where(bets: {serial_number: serial_number} ) }
   scope :by_email, -> (user_email) { joins(:user).where(users: {email: user_email} ) }

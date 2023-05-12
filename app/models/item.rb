@@ -23,7 +23,7 @@ class Item < ApplicationRecord
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from: [:pending, :cancelled, :ended], to: :starting, guard: :may_start?
+      transitions from: [:pending, :cancelled, :ended], to: :starting, guard: :may_start?, success: :change_quantity_and_batch_count
       transitions from: :paused, to: :starting
     end
 
@@ -44,5 +44,9 @@ class Item < ApplicationRecord
 
   def may_start?
     quantity > 0 && Time.current < offline_at && status == 'active'
+  end
+
+  def change_quantity_and_batch_count
+    update(quantity: quantity - 1, batch_count: batch_count + 1)
   end
 end

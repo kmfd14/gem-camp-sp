@@ -41,7 +41,6 @@ class Admin::ItemsController < ApplicationController
   def start
     item = Item.find(params[:id])
     if item.start!
-      item.update(quantity: item.quantity - 1, batch_count: item.batch_count + 1)
       flash[:notice] = 'Item started.'
     else
       flash[:alert] = "Item start failed."

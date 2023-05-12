@@ -1,5 +1,5 @@
 class Client::LotteryController < ApplicationController
-
+  after_action :authenticate_client_user!, only: :show
   def index
     @items = Item.active.starting.includes(:categories)
     @items = @items.filter_by_category(params[:category]) if params[:category].present?
@@ -7,7 +7,7 @@ class Client::LotteryController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @user_bets = current_client_user.bets.where(item_id: @item.id).order(created_at: :desc)
+    @user_bets = current_client_user.bets.where(item_id: @item.id).order(created_at: :desc) if params[:item_id].present?
     @bet = Bet.new
   end
 

@@ -1,6 +1,6 @@
 <div class="container-sm d-flex flex-column w-50 border border-dark rounded-3 bg-light text-black mb-2">
     <%= image_tag @item.image.url if @item.image.present? %>
-    <h4>show item id: <%= @item.id %></h4>
+    <h3><%= @item.name %></h3>
 </div>
 <div class="container-sm d-flex flex-column w-50 text-black mb-2">
   <%= form_with model: @bet, url: client_lottery_index_path, method: :post do |f| %>
@@ -22,16 +22,22 @@
   <% end %>
 </div>
 <div class="container-sm text-center w-25 overflow-scroll">
-  <table class="table table-striped">
+  <table class="table table-striped table-hover">
     <thead>
     <tr>
       <th>Serial Number</th>
     </tr>
     </thead>
     <tbody>
-    <% @user_bets.each do |bet| %>
+    <% if @user_bets.present? %>
+      <% @user_bets.each do |bet| %>
+        <tr>
+          <td><%= bet.serial_number %></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= bet.serial_number %></td>
+        <td><%= 'No record' %></td>
       </tr>
     <% end %>
     </tbody>

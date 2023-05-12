@@ -6,10 +6,10 @@ class Bet < ApplicationRecord
   after_create :deduct_coin
 
   scope :filter_by_serial_number, -> (serial_number) { where(bets: {serial_number: serial_number} ) }
-  scope :filter_by_item_name, -> (item_name) { where(bets: {item_name: item_name} ) }
-  scope :filter_by_email, -> (user_email) { where(bets: {email: user_email} ) }
+  scope :filter_by_item_name, -> (item_name) { joins(:item).where(items: {name: item_name}) }
+  scope :filter_by_email, -> (user_email) { joins(:user).where(users: {email: user_email}) }
   scope :filter_by_state, -> (state_name) { where(bets: {state: state_name} ) }
-  scope :filter_by_date_range, -> (date_range) { where(bets: {created_at: date_range})}
+  scope :filter_by_date_range, -> (date_range) { where(bets: {created_at: date_range} ) }
 
   include AASM
 
@@ -26,7 +26,7 @@ class Bet < ApplicationRecord
     end
 
     event :cancelled do
-      transitions from: :betting, to: :cancelled
+      transitions from: :betting, to: :cancelled, success: :refund_user_coins
     end
   end
 
@@ -42,5 +42,9 @@ class Bet < ApplicationRecord
 
   def deduct_coin
     self.user.decrement!(:coins)
+  end
+
+  def refund_user_coins
+    user.update(coins: user.coins + :coins)
   end
 end

@@ -9,15 +9,6 @@ class Admin::OrdersController < ApplicationController
     @orders = @orders.filter_by_date_range(params[:start_date].to_date..params[:end_date].to_date) if params[:start_date].present? && params[:end_date].present?
   end
 
-  def submit
-    order = Order.find(params[:id])
-    if order.submit!
-      flash[:notice] = "Order submitted."
-    else
-      flash[:alert] = "Order submit failed."
-    end
-    redirect_to admin_items_path
-  end
 
   def pay
     order = Order.find(params[:id])
@@ -26,6 +17,7 @@ class Admin::OrdersController < ApplicationController
     else
       flash[:alert] = "Order pay failed."
     end
+    redirect_to admin_orders_path
   end
 
   def cancel
@@ -35,5 +27,6 @@ class Admin::OrdersController < ApplicationController
     else
       flash[:alert] = "Order cancel failed."
     end
+    redirect_to admin_orders_path
   end
 end

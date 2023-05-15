@@ -11,14 +11,13 @@ class Order < ApplicationRecord
   scope :by_offer, -> (offer_name) { where(orders: {name: offer_name} ) }
   scope :by_date_range, -> (date_range) { where(bets: {created_at: date_range} ) }
 
-  before_create :order_serial_generator
+  after_create :order_serial_generator
 
   include AASM
-  belongs_to :item
 
   aasm column: :state do
     state :pending, initial: true
-    state :submitted, :cancelled, :payed
+    state :submitted, :cancelled, :paid
 
     event :submit do
       transitions from: :pending, to: :submitted
@@ -40,17 +39,17 @@ class Order < ApplicationRecord
     order_counter = Order.where(user: user).count
     number_count = format('%04d', order_counter)
     timestamp = Time.current.strftime('%y%m%d')
-    serial_number = "#{timestamp}-#{order.id}-#{user.id}-#{number_count}"
+    serial_number = "#{timestamp}-#{id}-#{user.id}-#{number_count}"
     self.update(serial_number: serial_number)
   end
 
   def pay_user_coins
     if genre == :deduct
-      self.user.update(coins: user.coins - :coins)
+      self.user.update(coins: user.coins - :coin)
     elsif genre == :deposit
-      self.user.update(total_deposit: user.total_deposit + :coins)
+      self.user.update(total_deposit: user.total_deposit + :coin)
     else
-      self.user.update(coins: user.coins + :coins)
+      self.user.update(coins: user.coins + offer.coin)
     end
   end
 

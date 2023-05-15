@@ -27,6 +27,11 @@ Rails.application.routes.draw do
         end
       end
       resources :offers
+      resources :orders do
+        member do
+          post :submit, :pay, :cancel
+        end
+      end
     end
   end
 

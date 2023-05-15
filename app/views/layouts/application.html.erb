@@ -10,13 +10,15 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <nav>
+  <nav class="gap-2">
     <%= link_to 'Home', root_path %>
     <% if request.host == 'admin.com' %>
       <%= link_to 'User List', admin_users_path %>
       <%= link_to 'Item List', admin_items_path %>
       <%= link_to 'Category List', admin_categories_path %>
       <%= link_to 'Bet List', admin_bets_path %>
+      <%= link_to 'Offer List', admin_offers_path %>
+      <%= link_to 'Order List', admin_orders_path %>
     <% end %>
     <% if client_user_signed_in? %>
       <h2> Hello <%= current_client_user.email %> </h2>

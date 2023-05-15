@@ -46,7 +46,7 @@ class Item < ApplicationRecord
   end
 
   def reached_min_bets?
-    bets.betting.where(batch_count: batch_count).count >= minimum_bets
+    bets.betting.where(item: self, batch_count: batch_count).count >= minimum_bets
   end
 
   def change_quantity_and_batch_count

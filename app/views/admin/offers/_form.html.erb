@@ -1,0 +1,32 @@
+<%= form_with model: offer, url: path, method: method do |f| %>
+  <% if @offer.errors.any? %>
+    <ul>
+      <% @offer.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :genre %>
+    <%= f.collection_select :genre, Offer.genres.keys, :to_s, :humanize, { include_blank: true }, { selected: params[:genre] } %>
+  </div>
+  <div>
+    <%= f.label :amount %>
+    <%= f.number_field :amount %>
+  </div>
+  <div>
+    <%= f.label :coin %>
+    <%= f.number_field :coin %>
+  </div>
+  <div>
+    <%= f.submit 'Submit Offer' %>
+  </div>
+<% end %>

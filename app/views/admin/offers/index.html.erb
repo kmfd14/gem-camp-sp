@@ -1,0 +1,36 @@
+<h1>Offers Page</h1>
+<p><%= link_to 'New Offer', new_admin_offer_path %></p>
+<div class="d-flex flex-row align-items-center justify-content-center">
+  <%= form_tag admin_offers_path, method: :get do %>
+    <b><%= 'Filter' %></b>
+    <%= select_tag :genre, options_for_select(@offers.genres, params[:genre]), include_blank: true %>
+    <%= select_tag :status, options_for_select(@offers.statuses, params[:status]), include_blank: true %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</div>
+<div class="d-flex flex-row align-items-center justify-content-lg-center">
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Genre</th>
+      <th>Status</th>
+      <th>Amount</th>
+      <th>Coin</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @offers.each do |offer| %>
+      <tr>
+        <td><%= image_tag offer.image.url if offer.image.present? %></td>
+        <td><%= offer.name %></td>
+        <td><%= offer.status %></td>
+        <td><%= offer.genre %></td>
+        <td><%= offer.amount %></td>
+        <td><%= offer.coin %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

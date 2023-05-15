@@ -26,6 +26,7 @@ Rails.application.routes.draw do
           post :submit, :pay, :ship, :deliver, :publish, :remove_publish
         end
       end
+      resources :offers
     end
   end
 

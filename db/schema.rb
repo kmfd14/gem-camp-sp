@@ -144,7 +144,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_045215) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "total_deposit", default: ""
     t.integer "children_member", default: 0
     t.integer "role", default: 0
     t.datetime "created_at", null: false
@@ -152,6 +151,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_045215) do
     t.string "image"
     t.integer "coins", default: 0
     t.integer "parent_id"
+    t.integer "total_deposit", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

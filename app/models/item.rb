@@ -54,7 +54,7 @@ class Item < ApplicationRecord
   end
 
   def update_bets_state
-    bets.where(batch_count: batch_count).each { |bet| bet.cancel! if bet.may_cancel? }
+    bets.where(item: self, batch_count: batch_count).each { |bet| bet.cancel! if bet.may_cancel? }
     update(quantity: quantity + 1)
   end
 

@@ -7,7 +7,7 @@ class Client::LotteryController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @user_bets = current_client_user.bets.where(item_id: @item.id).order(created_at: :desc)
+    @user_bets = current_client_user.bets.where(item_id: @item.id).order(created_at: :desc) if current_client_user.present?
     @bet = Bet.new
   end
 

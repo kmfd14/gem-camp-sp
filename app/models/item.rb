@@ -3,6 +3,7 @@ class Item < ApplicationRecord
 
   has_many :item_category_ships
   has_many :categories, through: :item_category_ships
+  has_many :bets
 
   scope :filter_by_category, -> (category_name) { includes(:categories).where(categories: { name: category_name } ) }
 
@@ -15,7 +16,6 @@ class Item < ApplicationRecord
   end
 
   include AASM
-  has_many :bets
 
   aasm column: :state do
     state :pending, initial: true

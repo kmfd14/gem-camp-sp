@@ -35,5 +35,4 @@ class Client::ShopsController < ApplicationController
   def order_params
     params.require(:order).permit(:offer_id, :user_id, :remarks)
   end
-
 end

@@ -1,6 +1,7 @@
 class Bet < ApplicationRecord
 
   belongs_to :user
+  belongs_to :item
 
   after_create :bet_serial_generator
   after_create :deduct_coin
@@ -12,7 +13,6 @@ class Bet < ApplicationRecord
   scope :filter_by_date_range, -> (date_range) { where(bets: {created_at: date_range} ) }
 
   include AASM
-  belongs_to :item
 
   aasm column: :state do
     state :betting, initial: true

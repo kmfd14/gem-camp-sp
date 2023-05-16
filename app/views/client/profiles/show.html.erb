@@ -9,6 +9,7 @@
     <p><strong>Username:</strong> <%= @user.username %></p>
     <p><strong>Email:</strong> <%= @user.email %></p>
     <p><strong>Phone number:</strong> <%= @user.phone_number %></p>
+    <p><strong>Coins:</strong> <%= number_with_delimiter(@user.coins, delimiter: ',') %></p>
     <%= link_to 'Cash In', edit_client_profile_path, class: "btn btn-primary w-100" %>
     <section class="d-flex flex-row align-items-center justify-content-evenly pt-2 gap-2">
       <%= link_to 'Edit Profile', edit_client_profile_path, class: "btn btn-outline-secondary w-100" %>
@@ -17,4 +18,86 @@
     <br>
   </div>
 </div>
-
+<section class="container d-flex flex-row align-items-center justify-content-evenly pt-2 gap-2 w-50">
+  <%= link_to 'Order History', client_profile_path(history: 'order_history'), class: "btn btn-outline-secondary w-100" %>
+  <%= link_to 'Lottery History', client_profile_path(history: 'lottery_history'), class: "btn btn-outline-secondary w-100"%>
+  <%= link_to 'Winning History', client_profile_path(history: 'winning_history'), class: "btn btn-outline-secondary w-100"%>
+  <%= link_to 'Invitation History', client_profile_path(history: 'invitation_history'), class: "btn btn-outline-secondary w-100"%>
+</section>
+<div class="container d-flex flex-row align-items-center justify-content-evenly pt-2 gap-2 w-50">
+  <% if params[:history] == 'order_history' %>
+  <strong>Order History</strong>
+  <% elsif params[:history] == 'lottery_history' %>
+  <strong>Lottery History</strong>
+  <% elsif params[:history] == 'winning_history' %>
+  <strong>Winning History</strong>
+  <% elsif params[:history] == 'invitation_history' %>
+  <strong>Invitation History</strong>
+  <% end %>
+</div>
+<div class="container d-flex flex-row align-items-center justify-content-center w-50 mt-3">
+  <div>
+    <table class="order-history table table-striped table-hover">
+      <tbody>
+      <% @order_history&.each do |order| %>
+        <tr>
+          <td>
+            Serial #: <%= order.serial_number %><br/>
+            Amount: <%= order.amount %><br/>
+            Coin: <%= order.coin %><br/>
+            Created at: <%= order.created_at %><br/>
+            State: <%= order.state.humanize %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <table class="lottery-history table table-striped table-hover">
+      <tbody>
+      <% @lottery_history&.each do |lottery| %>
+        <tr>
+          <td>
+            Serial #: <%= lottery.serial_number %><br/>
+            Item: <%= lottery.item.name %><br/>
+            Created at: <%= lottery.created_at %><br/>
+            State: <%= lottery.state.humanize %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <table class="winning-history table table-striped table-hover">
+      <tbody>
+        <% @winning_history&.each do |winning| %>
+          <tr>
+            <td>
+              Serial #: <%= winning.serial_number %><br/>
+              Item: <%= winning.item.name %><br/>
+              Created at: <%= winning.created_at %><br/>
+              State: <%= winning.state.humanize %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <table class="invitation-history table table-striped table-hover">
+      <tbody>
+      <% @invitation_history&.each do |invite| %>
+        <tr>
+          <td>
+            Username: <%= invite.username %><br/>
+            Email: <%= invite.email %><br/>
+            Created at: <%= invite.created_at %><br/>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

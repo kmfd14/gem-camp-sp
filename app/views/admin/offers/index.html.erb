@@ -14,10 +14,11 @@
     <tr>
       <th>Image</th>
       <th>Name</th>
-      <th>Genre</th>
       <th>Status</th>
+      <th>Genre</th>
       <th>Amount</th>
       <th>Coin</th>
+      <th>Control</th>
     </tr>
     </thead>
     <tbody>
@@ -29,6 +30,9 @@
         <td><%= offer.genre %></td>
         <td><%= offer.amount %></td>
         <td><%= offer.coin %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_offer_path(offer) %>
+        </td>
       </tr>
     <% end %>
     </tbody>

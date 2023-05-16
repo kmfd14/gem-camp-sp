@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       end
       resources :winners do
         member do
-          post :claim
+          post :claim, :share
         end
       end
     end

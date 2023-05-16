@@ -1,0 +1,20 @@
+<%= form_with model: @winner, url: client_winner_path, method: :patch do |f| %>
+  <% if @winner.errors.any? %>
+    <ul>
+      <% @winner.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= f.label :picture %>
+    <%= f.file_field :picture %>
+  </div>
+  <div>
+    <%= f.label :comment %>
+    <%= f.text_area :comment, class: "form-control", placeholder: "Leave a comment here" %>
+  </div>
+  <div>
+    <%= f.submit 'Submit Feedback' %>
+  </div>
+<% end %>

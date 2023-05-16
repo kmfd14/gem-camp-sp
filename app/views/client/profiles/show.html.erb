@@ -79,6 +79,7 @@
               Date: <%= winning.created_at.strftime("%d/%m/%Y") %><br/>
               State: <%= winning.state.humanize %>
               <%= link_to 'Claim Prize', client_winner_path(winning), class: 'btn btn-success', data: { turbo: false } if winning.may_claim? %>
+              <%= link_to 'Share', edit_client_winner_path(winning),class: 'btn btn-success', data: { turbo: false } if winning.may_share? %>
             </td>
           </tr>
         <% end %>

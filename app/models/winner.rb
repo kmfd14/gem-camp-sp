@@ -11,6 +11,8 @@ class Winner < ApplicationRecord
   scope :by_state, -> (state_name) { where(bets: {state: state_name} ) }
   scope :by_date_range, -> (date_range) { where(bets: {created_at: date_range} ) }
 
+  mount_uploader :picture, ImageUploader
+
   aasm column: :state do
     state :won, initial: true
     state :claimed, :submitted, :paid, :shipped, :delivered, :shared,:published, :remove_published

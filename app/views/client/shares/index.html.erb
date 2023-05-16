@@ -1,0 +1,14 @@
+<strong class="fs-1">Share View</strong>
+<div class="d-flex flex-row align-items-center justify-content-center">
+  <% @shares.each do |share| %>
+    <tr>
+      <td class="container-sm d-flex flex-column">
+        <div><%= image_tag share.picture.url if share.picture.present? %></div>
+        <div class="container-sm">
+          <h3><%= share.user.username %><br/></h3>
+          <p><%= share.comment %></p>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</div>

@@ -1,0 +1,9 @@
+<div class="container d-flex flex-column align-items-center justify-content-evenly pt-2 gap-2 w-50">
+  <div><strong>Address name:</strong> <%= @address_name %></div>
+  <div><strong>This is your default address:</strong> <%= @winner_address %></div>
+  <div><strong class="fs-4">Would you like to claim?</strong></div>
+</div>
+<section class="container d-flex flex-row align-items-center justify-content-evenly pt-2 gap-2 w-50">
+  <div class="w-100"><%= button_to 'Claim Prize', claim_client_winner_path(params[:id]), class: "btn btn-primary w-50" %></div>
+  <%= link_to 'Change Default Address', client_user_address_index_path, class: "btn btn-secondary w-50" %>
+</section>

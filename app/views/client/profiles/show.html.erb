@@ -26,13 +26,13 @@
   </section>
   <div class="container d-flex flex-row align-items-center justify-content-evenly pt-2 gap-2 w-50">
     <% if params[:history] == 'order_history' %>
-      <strong>Order History</strong>
+      <strong class="fs-2">Order History</strong>
     <% elsif params[:history] == 'lottery_history' %>
-      <strong>Lottery History</strong>
+      <strong class="fs-2">Lottery History</strong>
     <% elsif params[:history] == 'winning_history' %>
-      <strong>Winning History</strong>
+      <strong class="fs-2">Winning History</strong>
     <% elsif params[:history] == 'invitation_history' %>
-      <strong>Invitation History</strong>
+      <strong class="fs-2">Invitation History</strong>
     <% end %>
   </div>
   <div class="container d-flex flex-row align-items-center justify-content-center w-50 mt-3">
@@ -78,7 +78,7 @@
               Item: <%= winning.item.name %><br/>
               Date: <%= winning.created_at.strftime("%d/%m/%Y") %><br/>
               State: <%= winning.state.humanize %>
-              <%= button_to 'Claim Prize', claim_client_winner_path(winning), class: 'btn btn-success', data: { turbo:false} if winning.may_claim? %>
+              <%= link_to 'Claim Prize', client_winner_path(winning), class: 'btn btn-success', data: { turbo: false } if winning.may_claim? %>
             </td>
           </tr>
         <% end %>

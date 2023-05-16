@@ -13,6 +13,11 @@ Rails.application.routes.draw do
           post :submit, :pay
         end
       end
+      resources :winners do
+        member do
+          post :claim
+        end
+      end
     end
   end
 

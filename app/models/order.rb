@@ -24,12 +24,12 @@ class Order < ApplicationRecord
     end
 
     event :pay do
-      transitions from: :submitted, to: :paid, success: :pay_user_coins
+      transitions from: :submitted, to: :paid, success: [:increase_coins_when_not_deduct, :increase_total_deposit_when_deposit]
     end
 
     event :cancel do
       transitions from: [:pending, :submitted], to: :cancelled
-      transitions from: :paid, to: :cancelled, guard: :can_cancel?, success: :cancel_user_coins
+      transitions from: :paid, to: :cancelled, guard: :can_cancel?, success: [:decrease_coins_when_not_deduct, :decrease_total_deposit_when_deposit]
     end
   end
 
@@ -43,27 +43,29 @@ class Order < ApplicationRecord
     self.update(serial_number: serial_number)
   end
 
-  def pay_user_coins
-    if genre == :deduct
-      self.user.update(coins: user.coins - :coin)
-    elsif genre == :deposit
-      self.user.update(total_deposit: user.total_deposit + :coin)
-    else
-      self.user.update(coins: user.coins + offer.coin)
-    end
+  def increase_coins_when_not_deduct
+    self.user.update(coins: user.coins + offer.coin) unless deduct?
   end
 
-  def cancel_user_coins
-    if genre == :deduct
-      self.user.update(coins: user.coins + :coins)
-    elsif genre == :deposit
-      self.user.update(total_deposit: user.total_deposit - :coins)
-    else
-      self.user.update(coins: user.coins - :coins)
-    end
+  def decrease_coins_when_not_deduct
+    self.user.update(coins: user.coins - offer.coin) unless !deduct?
+  end
+
+  def increase_total_deposit_when_deposit
+    return unless deposit?
+    self.user.update(total_deposit: user.total_deposit + offer.coin)
+  end
+
+  def decrease_total_deposit_when_deposit
+    return unless deposit?
+    self.user.update(total_deposit: user.total_deposit - offer.coin)
+  end
+
+  def deposit?
+    genre == 'deposit'
   end
 
   def can_cancel?
-    self.user.total_deposit >= coin
+    self.user.coins >= coin
   end
 end

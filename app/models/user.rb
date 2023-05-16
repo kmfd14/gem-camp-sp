@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-  validates :username, :phone_number, uniqueness: true
+  validates :username, uniqueness: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :user_address
 
   has_many :bets
+  has_many :orders
   has_many :winners
   has_many :winners, class_name: 'Winner', foreign_key: :admin_id
 

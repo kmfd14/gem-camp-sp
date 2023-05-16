@@ -5,6 +5,7 @@ class Admin::WinnersController < ApplicationController
     @winners = @winners.by_email(params[:email]) if params[:email].present?
     @winners = @winners.by_state(params[:state]) if params[:state].present?
     @winners = @winners.by_date_range(params[:start_date].to_date..params[:end_date].to_date) if params[:start_date].present? && params[:end_date].present?
+    @winner_addresses = get_winner_addresses(@winners)
   end
 
   def submit
@@ -60,5 +61,19 @@ class Admin::WinnersController < ApplicationController
     else
       flash[:alert] = "[Failed] - State: Remove Publish"
     end
+  end
+
+  def get_winner_addresses(winners)
+    winner_addresses = {}
+    winners.each do |winner|
+      winner_address = UserAddress.find(winner.address_id)
+      street_name = winner_address.street_address
+      barangay = winner_address.barangay.name
+      city = winner_address.city.name
+      province = winner_address.province.name
+      region = winner_address.region.name
+      winner_addresses[winner.id] = "#{street_name}, #{barangay}, #{city}, #{province}, #{region}"
+    end
+    winner_addresses
   end
 end

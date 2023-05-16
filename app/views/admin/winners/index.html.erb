@@ -18,6 +18,7 @@
       <th>Serial Number</th>
       <th>Email</th>
       <th>State</th>
+      <th>Address</th>
       <th>Created At</th>
       <th>Control</th>
     </tr>
@@ -28,6 +29,7 @@
         <td><%= winner.bet.serial_number %></td>
         <td><%= winner.user.email %></td>
         <td><%= winner.state %></td>
+        <td><%= @winner_addresses[winner.id] %></td>
         <td><%= winner.created_at %></td>
         <td>
           <%= button_to 'Submit', submit_admin_winner_path(winner), class: 'btn btn-success', data: { turbo: false } if winner.may_submit? %>

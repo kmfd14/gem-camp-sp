@@ -7,7 +7,11 @@ Rails.application.routes.draw do
       resources :invite, only: [:index]
       resources :user_address, path: 'address'
       resources :lottery, only: [:index, :show, :create]
-      resources :orders
+      resources :orders do
+        member do
+          post :cancel
+        end
+      end
       resources :shops do
         member do
           post :submit, :pay

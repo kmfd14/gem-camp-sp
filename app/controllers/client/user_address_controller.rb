@@ -3,6 +3,7 @@ class Client::UserAddressController < ApplicationController
 
   def index
     @user_addresses = current_client_user.user_address.order(is_default: :desc)
+    @address_strings = concatenate_address(@user_addresses)
   end
 
   def new
@@ -47,5 +48,11 @@ class Client::UserAddressController < ApplicationController
 
   def address_params
     params.require(:user_address).permit(:is_default, :name, :genre, :street_address, :phone_number, :remark, :address_region_id, :address_province_id, :address_city_id, :address_barangay_id)
+  end
+
+  def concatenate_address(user_addresses)
+    user_addresses.map do |address|
+      "#{address.street_address}, #{address.barangay&.name}, #{address.city&.name}, #{address.province&.name}, #{address.region&.name}"
+    end
   end
 end

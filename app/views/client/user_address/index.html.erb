@@ -12,12 +12,13 @@
           <th>Genre</th>
           <th>Name</th>
           <th>Address</th>
+          <th>Contact Number</th>
           <th>Remark</th>
-          <th>Action</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-        <% @user_addresses.each do |address| %>
+        <% @user_addresses.each_with_index do |address, index| %>
           <tr>
             <td>
               <% if address.is_default %>
@@ -28,7 +29,8 @@
             </td>
             <td><%= address.genre %></td>
             <td><%= address.name %></td>
-            <td class="text-justify"><%= "#{address.street_address}, #{address.barangay&.name}, #{address.city&.name}, #{address.province&.name}, #{address.region&.name}" %></td>
+            <td><%= @address_strings[index] %></td>
+            <td><%= address.phone_number %></td>
             <td><%= address.remark %></td>
             <td>
               <%= link_to 'Edit', edit_client_user_address_path(address), class: "btn btn-primary" %>

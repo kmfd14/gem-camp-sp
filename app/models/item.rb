@@ -46,7 +46,7 @@ class Item < ApplicationRecord
   end
 
   def reached_min_bets?
-    bets.betting.where(item: self, batch_count: batch_count).count >= minimum_bets
+    bets.betting.where(batch_count: batch_count).count >= minimum_bets
   end
 
   def change_quantity_and_batch_count
@@ -59,10 +59,12 @@ class Item < ApplicationRecord
   end
 
   def select_winner
-    batch_bets = bets.betting.where(batch_count: batch_count)
+    batch_bets = bets.betting.where(item: self, batch_count: batch_count)
     winning_bet = batch_bets.sample
     winning_bet.win!
     batch_bets.where.not(id: winning_bet.id).each { |bet| bet.lose! }
-    Winner.create(item: self, bet: winning_bet, user: winning_bet.user, item_batch_count: winning_bet.batch_count)
+    user_address = UserAddress.where(user_id: winning_bet.user, is_default: 1).ids.first
+    admin_user = User.admin.first
+    Winner.create(item: self, bet: winning_bet, user: winning_bet.user, item_batch_count: winning_bet.batch_count, address_id: user_address, admin: admin_user )
   end
 end

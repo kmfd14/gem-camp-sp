@@ -5,13 +5,9 @@
   <p>Amount: <%= @offer.amount %></p>
   <p>Coins: <%= @offer.coin %></p>
   <%= form_with model: @order, url: client_shops_path, method: :post do |f| %>
-    <%= f.text_field :offer_id, value: params[:id] %>
-    <div class="mb-3">
-      <%= f.label :remarks %>
-      <%= f.text_field :remarks %>
-    </div>
+    <%= f.hidden_field :offer_id, value: params[:id] %>
     <div class="d-flex flex-row align-items-center justify-content-evenly pb-2">
-      <%= f.submit 'Submit', class: "btn btn-primary w-100" %>
+      <%= f.submit 'Confirm Buy Order', class: "btn btn-primary w-100" %>
     </div>
   <% end %>
 </div>

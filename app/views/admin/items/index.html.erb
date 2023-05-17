@@ -30,10 +30,10 @@
       <td><%= item.start_at %></td>
       <td><%= item.status %></td>
       <td>
-        <%= button_to 'Start', start_admin_item_path(item), class: 'btn btn-success', data: { turbo: false } if item.may_start? %>
-        <%= button_to 'Pause', pause_admin_item_path(item), class: 'btn btn-info', data: { turbo: false } if item.may_pause? %>
-        <%= button_to 'End', end_admin_item_path(item), class: 'btn btn-primary', data: { turbo: false } if item.may_end? %>
-        <%= button_to 'Cancel', cancel_admin_item_path(item), class: 'btn btn-danger', data: { turbo: false } if item.may_cancel? %>
+        <%= button_to 'Start', admin_item_start_path(item), class: 'btn btn-success', data: { turbo: false } if item.may_start? %>
+        <%= button_to 'Pause', admin_item_pause_path(item), class: 'btn btn-info', data: { turbo: false } if item.may_pause? %>
+        <%= button_to 'End', admin_item_end_path(item), class: 'btn btn-primary', data: { turbo: false } if item.may_end? %>
+        <%= button_to 'Cancel', admin_item_cancel_path(item), class: 'btn btn-danger', data: { turbo: false } if item.may_cancel? %>
       </td>
       <td>
         <%= link_to 'Edit Item', edit_admin_item_path(item) %>

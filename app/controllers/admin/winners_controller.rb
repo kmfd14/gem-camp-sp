@@ -9,7 +9,7 @@ class Admin::WinnersController < ApplicationController
   end
 
   def submit
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.submit!
       flash[:notice] = "[Success] - State: Submitted"
     else
@@ -19,48 +19,53 @@ class Admin::WinnersController < ApplicationController
   end
 
   def pay
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.pay!
       flash[:notice] = "[Success] - State: Paid"
     else
       flash[:alert] = "[Failed] - State: Paid"
     end
+    redirect_to admin_winners_path
   end
 
   def ship
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.ship!
       flash[:notice] = "[SUCCESS] - State: Shipped"
     else
       flash[:alert] = "[Failed] - State: Shipped"
     end
+    redirect_to admin_winners_path
   end
 
   def deliver
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.deliver!
       flash[:notice] = "[SUCCESS] - State: Deliver"
     else
       flash[:alert] = "[Failed] - State: Deliver"
     end
+    redirect_to admin_winners_path
   end
 
   def publish
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.publish!
       flash[:notice] = "[Success] - State: Publish"
     else
       flash[:alert] = "[Failed] - State: Publish"
     end
+    redirect_to admin_winners_path
   end
 
   def remove_publish
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.remove_publish!
       flash[:notice] = "[Success] - State: Remove Publish"
     else
       flash[:alert] = "[Failed] - State: Remove Publish"
     end
+    redirect_to admin_winners_path
   end
 
   def get_winner_addresses(winners)

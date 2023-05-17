@@ -27,7 +27,7 @@ class Client::WinnersController < ApplicationController
   end
 
   def claim
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.claim!
       flash[:notice] = "[Success] - State: Claimed"
     else
@@ -37,7 +37,7 @@ class Client::WinnersController < ApplicationController
   end
 
   def share
-    winner = Winner.find(params[:id])
+    winner = Winner.find(params[:winner_id])
     if winner.share!
       flash[:notice] = "[Success] - State: Shared"
     else

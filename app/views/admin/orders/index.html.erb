@@ -41,8 +41,8 @@
         <td><%= order.coin %></td>
         <td><%= order.remarks %></td>
         <td>
-          <%= button_to 'Pay', pay_admin_order_path(order), class: 'btn btn-info', data: { turbo: false } if order.may_pay? %>
-          <%= button_to 'Cancel', cancel_admin_order_path(order), class: 'btn btn-danger', data: { turbo: false } if order.may_cancel? %>
+          <%= button_to 'Pay', admin_order_pay_path(order), class: 'btn btn-info', data: { turbo: false } if order.may_pay? %>
+          <%= button_to 'Cancel', admin_order_cancel_path(order), class: 'btn btn-danger', data: { turbo: false } if order.may_cancel? %>
         </td>
       </tr>
     <% end %>

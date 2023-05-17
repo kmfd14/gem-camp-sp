@@ -8,19 +8,13 @@ Rails.application.routes.draw do
       resources :user_address, path: 'address'
       resources :lottery, only: [:index, :show, :create]
       resources :orders do
-        member do
-          post :cancel
-        end
+        post :cancel
       end
       resources :shops do
-        member do
-          post :submit, :pay
-        end
+        post :submit, :pay
       end
       resources :winners do
-        member do
-          post :claim, :share
-        end
+        post :claim, :share
       end
       resources :shares
     end
@@ -31,22 +25,16 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :users
       resources :items do
-        member do
-          post :start, :pause, :end, :cancel
-        end
+        post :start, :pause, :end, :cancel
       end
       resources :categories, except: :show
       resources :bets, only: [:index]
       resources :winners do
-        member do
-          post :submit, :pay, :ship, :deliver, :publish, :remove_publish
-        end
+        post :submit, :pay, :ship, :deliver, :publish, :remove_publish
       end
       resources :offers
       resources :orders do
-        member do
-          post :submit, :pay, :cancel
-        end
+        post :submit, :pay, :cancel
       end
     end
   end

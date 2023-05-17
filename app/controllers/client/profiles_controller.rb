@@ -9,7 +9,6 @@ class Client::ProfilesController < ApplicationController
     @lottery_history = @user.bets if params[:history] == 'lottery_history'
     @winning_history = @winner if params[:history] == 'winning_history'
     @invitation_history = @users.where(parent_id: @user) if params[:history] == 'invitation_history'
-    # @user_order_history = current_client_user.orders.where(offer_id: @order.id)
   end
   def edit
     @user = current_client_user

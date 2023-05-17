@@ -47,7 +47,7 @@
               Coin: <%= order.coin %><br/>
               Created at: <%= order.created_at %><br/>
               State: <%= order.state.humanize %>
-              <%= button_to 'Cancel', cancel_client_order_path(order), class:'btn btn-danger', data: { turbo: false } if order.may_cancel? %>
+              <%= button_to 'Cancel', client_order_cancel_path(order), class:'btn btn-danger', data: { turbo: false } if order.may_cancel? %>
             </td>
           </tr>
         <% end %>

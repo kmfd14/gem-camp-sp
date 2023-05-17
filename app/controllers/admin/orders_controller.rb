@@ -11,7 +11,7 @@ class Admin::OrdersController < ApplicationController
 
 
   def pay
-    order = Order.find(params[:id])
+    order = Order.find(params[:order_id])
     if order.pay!
       flash[:notice] = "Order payed."
     else
@@ -21,7 +21,7 @@ class Admin::OrdersController < ApplicationController
   end
 
   def cancel
-    order = Order.find(params[:id])
+    order = Order.find(params[:order_id])
     if order.cancel!
       flash[:notice] = "Order cancelled."
     else

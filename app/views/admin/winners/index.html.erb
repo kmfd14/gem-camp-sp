@@ -32,12 +32,12 @@
         <td><%= @winner_addresses[winner.id] %></td>
         <td><%= winner.created_at %></td>
         <td>
-          <%= button_to 'Submit', submit_admin_winner_path(winner), class: 'btn btn-success', data: { turbo: false } if winner.may_submit? %>
-          <%= button_to 'Pay', pay_admin_winner_path(winner), class: 'btn btn-info', data: { turbo: false } if winner.may_pay? %>
-          <%= button_to 'Ship', ship_admin_winner_path(winner), class: 'btn btn-primary', data: { turbo: false } if winner.may_ship? %>
-          <%= button_to 'Deliver', deliver_admin_winner_path(winner), class: 'btn btn-danger', data: { turbo: false } if winner.may_deliver? %>
-          <%= button_to 'Publish', publish_admin_winner_path(winner), class: 'btn btn-danger', data: { turbo: false } if winner.may_publish? %>
-          <%= button_to 'Remove Publish', remove_publish_admin_winner_path(winner), class: 'btn btn-danger', data: { turbo: false } if winner.may_remove_publish? %>
+          <%= button_to 'Submit', admin_winner_submit_path(winner), class: 'btn btn-success', data: { turbo: false } if winner.may_submit? %>
+          <%= button_to 'Pay', admin_winner_pay_path(winner), class: 'btn btn-info', data: { turbo: false } if winner.may_pay? %>
+          <%= button_to 'Ship', admin_winner_ship_path(winner), class: 'btn btn-primary', data: { turbo: false } if winner.may_ship? %>
+          <%= button_to 'Deliver', admin_winner_deliver_path(winner), class: 'btn btn-danger', data: { turbo: false } if winner.may_deliver? %>
+          <%= button_to 'Publish', admin_winner_publish_path(winner), class: 'btn btn-danger', data: { turbo: false } if winner.may_publish? %>
+          <%= button_to 'Remove Publish', admin_winner_remove_publish_path(winner), class: 'btn btn-danger', data: { turbo: false } if winner.may_remove_publish? %>
         </td>
       </tr>
     <% end %>

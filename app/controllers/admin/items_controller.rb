@@ -39,7 +39,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def start
-    item = Item.find(params[:id])
+    item = Item.find(params[:item_id])
     if item.start!
       flash[:notice] = 'Item started.'
     else
@@ -49,7 +49,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def pause
-    item = Item.find(params[:id])
+    item = Item.find(params[:item_id])
     if item.pause!
       flash[:notice] = 'Item paused.'
     else
@@ -59,7 +59,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def end
-    item = Item.find(params[:id])
+    item = Item.find(params[:item_id])
     if item.end!
       flash[:notice] = "Item ended."
     else
@@ -69,7 +69,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def cancel
-    item = Item.find(params[:id])
+    item = Item.find(params[:item_id])
     if item.cancel!
       flash[:notice] = "Item cancelled."
     else

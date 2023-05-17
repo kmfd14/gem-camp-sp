@@ -9,7 +9,7 @@ class Admin::BetsController < ApplicationController
   end
 
   def cancel
-    bet = Bet.find(params[:id])
+    bet = Bet.find(params[:bet_id])
     if bet.cancel!
       flash[:notice] = "Bet cancel completed."
     else

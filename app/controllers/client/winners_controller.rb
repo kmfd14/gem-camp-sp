@@ -1,15 +1,4 @@
 class Client::WinnersController < ApplicationController
-  def show
-    @winner = Winner.find(params[:id])
-    winner_address = UserAddress.find_by(user: @winner.user_id, is_default: 1)
-    @address_name = winner_address.name
-    street_name = winner_address.street_address
-    barangay = winner_address.barangay.name
-    city = winner_address.city.name
-    province = winner_address.province.name
-    region = winner_address.region.name
-    @winner_address = "#{street_name}, #{barangay}, #{city}, #{province}, #{region}"
-  end
 
   def edit
     @winner = Winner.find(params[:id])
@@ -50,5 +39,9 @@ class Client::WinnersController < ApplicationController
 
   def feedback_params
     params.require(:winner).permit(:picture, :comment)
+  end
+
+  def user_address_params
+    params.require(:winner).premit(:user_address)
   end
 end

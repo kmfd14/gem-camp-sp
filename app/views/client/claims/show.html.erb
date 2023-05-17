@@ -1,0 +1,8 @@
+<div class="container-sm w-50 border rounded-3 border-3 border-sercondary">
+  <h5>Item to be claimed: <strong class="fs-4"><%= @winner.item.name %></strong></h5>
+  <h6>Select your preferred address below:</h6>
+  <%= form_with model: @winner, url: client_claim_path, method: :patch do |f| %>
+    <%= f.select :address_id, options_for_select(current_client_user.user_address.map { |address| [address.address_concat, address.id] }), { prompt: "Select Address" }, class: "form-select" %>
+    <%= f.submit 'Confirm Address', class: "btn btn-outline-success mt-2 mb-2 w-100" %>
+  <% end %>
+</div>

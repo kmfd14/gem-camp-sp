@@ -12,6 +12,10 @@ class UserAddress < ApplicationRecord
 
   enum genre: { home: 0, office: 1 }
 
+  def address_concat
+    "#{name} - #{street_address}, #{barangay&.name}, #{city&.name}, #{province&.name}, #{region&.name}"
+  end
+
   private
 
   def user_address_limit
